@@ -6,19 +6,18 @@ primo ou não.
 no intervalo solicitado.
 ▪ Você precisará colocar uma estrutura de repetição dentro da outra.
 ▪ Laços aninhados!!!! """
-from sympy import false
 
-def even(num):
+def isEven(num):
     if num % 2 == 0:
         return True
     return False
 
-def prime(num):
+def isPrime(num):
 
     if num == 2:
         return True
 
-    if even(num):
+    if isEven(num):
         return False
 
     div = 0
@@ -32,10 +31,12 @@ def prime(num):
 
     return False
 
-for i in range(2001):
 
-    if prime(i):
+num_range = int(input("Digite um número: "))
+
+print(f"\nOs números primos entre 0 e {num_range} são:\n")
+
+for i in range(num_range+1):
+
+    if isPrime(i):
         print(f"{i},", end=" ")
-
-    if i % 100 == 0:
-        print()

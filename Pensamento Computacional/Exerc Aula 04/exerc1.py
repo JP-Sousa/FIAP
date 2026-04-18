@@ -3,14 +3,13 @@
 ▪ Ao final de toda iteração da repetição, você deve perguntar ao usuário
  se ele deseja exibir a mensagem
 novamente.
-▪ Se sim, exiba novamente. Senão, saia do loop e exiba a mensagem “Fim”.
-"""
+▪ Se sim, exiba novamente. Senão, saia do loop e exiba a mensagem “Fim”."""
 
-ver = "s"
+user_answer = "s"
 
-while ver == 'S' or ver == "s":
+while user_answer == 'S' or user_answer == "s":
     print("Olá, Mundo")
 
-    ver = input("Deseja continuar (S) ou (N): ")
+    user_answer = input("Deseja continuar exibindo a mensagem? (S) ou (N): ")
 
 print("Fim")

@@ -1,7 +1,7 @@
 # Faça um programa que receba um número n
 # Exiba a tabuada deste número do 0 ao 25.
 
-n = int(input("Digite um numero inteiro positivo: "))
+n = int(input("Digite um numero: "))
 
-for i in range(1, 25+1, 1):
-    print(f"{i} * {n} = {n*i}")
+for i in range(26):
+    print(f"{n} * {i} = {n*i}")
