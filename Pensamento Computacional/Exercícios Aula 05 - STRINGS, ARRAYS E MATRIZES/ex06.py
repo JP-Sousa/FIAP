@@ -4,3 +4,7 @@
    ou seja, trocar o conteúdo da primeira posição (0) com a ´ultima (n − 1)
     a segunda com a penúltima e assim por diante até que o vetor esteja invertido. """
 
+frase = input("Digite algo: ")
+
+for i in range(len(frase)-1, -1, -1):
+    print(frase[i], end="")
