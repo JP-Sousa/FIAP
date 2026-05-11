@@ -4,7 +4,7 @@
 
 import random
 
-n = int(input())
+n = int(input("Digite um numero inteiro maior que 0: "))
 
 num = [None] * n
 

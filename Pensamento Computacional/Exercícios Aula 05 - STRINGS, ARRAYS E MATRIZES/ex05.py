@@ -7,6 +7,7 @@ i = 0
 
 while True:
     name[i] = input("Digite um nome: ")
+
     if name[i] != "":
         i += 1
         name.append(name)

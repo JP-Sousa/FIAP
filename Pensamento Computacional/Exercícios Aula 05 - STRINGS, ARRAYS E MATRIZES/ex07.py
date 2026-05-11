@@ -5,6 +5,5 @@ import random
 
 num = [[random.randint(1, 10) for _ in range(4)] for _ in range(3)]
 
-print(num)
-
-teste = [10 for _ in range(4)]
+for _ in range(len(num)):
+    print(num[_])
