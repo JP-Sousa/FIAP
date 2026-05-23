@@ -34,14 +34,15 @@
 
     <input type="text" id="nome" placeholder="Digite um nome">
     <br>
-    <button onclick = "adicionarFim()">Adicionar no Fim</button>
-    <button onclick = "adicionarInicio()">Adicionar no Início</button>
-    <button onclick = "removerInicio()">Remover no Início</button>
+    <button onclick = "adicionarTarefa()">Adicionar Tarefa</button>
+    <button onclick = "urgente()">Tarefa Urgente</button>
+    <button onclick = "concluirTarefa()">Concluir Tarefa</button>
+    <button onclick = "mostrar()">Mostrar Tarefas</button>
     <br>
     <br>
-    <button onclick = "contar()">Contar elementos</button>
-    <button onclick = "removerElemento()">Remover Elemento</button>
-    <button onclick = "mostrar()">Mostrar Lista</button>
+    <button onclick = "contar()">Contar Tarefas</button>
+    <button onclick = "removerTarefa()">Remover Tarefa</button>
+    <button onclick = "prioridade()">Subir Prioridade</button>
 
     <div id="saida"></div>
 
@@ -53,7 +54,7 @@
     let inicio = -1;
     let ultimo = -1;
 
-    function adicionarFim(){
+    function adicionarTarefa(){
         let nome = document.getElementById("nome").value;
 
         if (nome === ""){
@@ -78,30 +79,53 @@
         mostrar();
     }
 
-    function adicionarInicio(){
-        let nome = document.getElementById("nome").value;
+    function urgente(){
+        let nomeBusca = document.getElementById("nome").value;
 
-        if (nome === ""){
+        if (nomeBusca === ""){
             alert("Digite um nome");
             return;
         }
 
-        let novoIndice = valores.length;
-        valores.push(nome);
+        if (inicio === -1){
+            alert("Lista Vazia")
+            return;
+        }
 
-        proximo.push(inicio);
+        let atual = inicio;
+        let anterior = -1;
+        let encontrou = false;
 
-        inicio = novoIndice;
+        while(atual !== -1){
 
-        if (ultimo === -1)
-            ultimo = novoIndice;
+            if (valores[atual] === nomeBusca){
+                encontrou = true;
+                break;
+            }
 
-        document.getElementById("nome").value = "";
+            anterior = atual;
+            atual = proximo[atual];
+        }
 
-        mostrar();
+        if (encontrou){
+            if(anterior === -1)
+                return;
+            
+            proximo[anterior] = proximo[atual];
+
+            proximo[atual] = inicio;
+
+            inicio = atual;
+            
+            if (atual === ultimo)
+                ultimo = anterior;
+
+            mostrar();
+        }else
+            document.getElementById("saida").innerHTML = "Nome não encontrado na Lista.";
     }
 
-    function removerInicio(){
+    function concluirTarefa(){
         if (inicio === -1){
             alert("Lista Vazia")
             return;
@@ -131,7 +155,22 @@
         document.getElementById("saida").innerHTML = resultado;
     }
 
-    function removerElemento(){
+    function contar(){
+
+        let total = 0
+        let atual = inicio;
+
+        while (atual !== -1){
+            atual = proximo[atual];
+            total++;
+        }
+
+        let string = "Total de tarefas = " + total;
+
+        document.getElementById("saida").innerHTML = string;
+    }
+
+    function removerTarefa(){
 
         let nomeBusca = document.getElementById("nome").value;
 
@@ -162,7 +201,7 @@
 
         if (encontrou){
             if(anterior === -1)
-                removerInicio();
+                concluirTarefa();
             else
                 proximo[anterior] = proximo[atual];
             
@@ -174,6 +213,66 @@
             mostrar();
         }else
             document.getElementById("saida").innerHTML = "Nome não encontrado na Lista.";
+
+        document.getElementById("nome").value = "";
+    }
+
+    function prioridade(){
+
+        let nomeBusca = document.getElementById("nome").value;
+
+        if (nomeBusca === ""){
+            alert("Digite um nome");
+            return;
+        }
+
+        if (inicio === -1){
+            alert("Lista Vazia")
+            return;
+        }
+
+        let atual = inicio;
+        let antepenultimo = -2;
+        let anterior = -1;
+        let encontrou = false;
+
+        while(atual !== -1){
+
+            if (valores[atual] === nomeBusca){
+                encontrou = true;
+                break;
+            }
+
+            antepenultimo = anterior;
+            anterior = atual;
+            atual = proximo[atual];
+        }
+
+        if (encontrou){
+
+            if(anterior === -1)
+                return;
+
+            if(antepenultimo === -1){
+
+                proximo[anterior] = proximo[atual];
+                proximo[atual] = anterior;
+                inicio = atual;
+            }
+            else{
+
+                proximo[anterior] = proximo[atual];
+                proximo[antepenultimo] = atual;
+                proximo[atual] = anterior;
+            }
+
+            if(atual === ultimo)
+                ultimo = anterior;
+
+        }else
+            document.getElementById("saida").innerHTML = "Nome não encontrado na Lista.";
+
+        mostrar();
 
         document.getElementById("nome").value = "";
     }
